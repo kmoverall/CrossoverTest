@@ -129,7 +129,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -142,8 +142,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8777006292919076133}
+  - component: {fileID: 3733714115403257310}
   m_Layer: 0
-  m_Name: StoneBlock
+  m_Name: JengaBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,3 +166,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3733714115403257310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745653796189959873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd959ae6eb5d2f42a7b2baec5184545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _masteryMaterials:
+  - {fileID: 2100000, guid: 19bc7adcadc761248b0de1b119cfb277, type: 2}
+  - {fileID: 2100000, guid: a43c0f7d26d9d7a4487fa0e9c9175f17, type: 2}
+  - {fileID: 2100000, guid: aaf7aa61a2604e0428b66a19f2c23901, type: 2}
+  _blockRenderer: {fileID: 5064772446591007954}
+  _blockPhysics: {fileID: 0}

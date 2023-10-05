@@ -17,18 +17,18 @@ public static class HttpService
         _client = new HttpClient();
     }
 
-    public static void GetJSON<T>(string uri, Action<T> callback, Action failureCallback = null)
+    public static void GetJSON<T>(string uri, Action<T> callback, Action<HttpResponseMessage> failureCallback = null)
     {
         GetJSONAsync(uri, callback, failureCallback);
     }
 
-    public static async void GetJSONAsync<T>(string uri, Action<T> callback, Action failureCallback)
+    public static async void GetJSONAsync<T>(string uri, Action<T> callback, Action<HttpResponseMessage> failureCallback)
     {
         using HttpResponseMessage response = await _client.GetAsync(uri);
 
-        if (!response.IsSuccessStatusCode)
+        if (response == null || !response.IsSuccessStatusCode)
         {
-            failureCallback?.Invoke();
+            failureCallback?.Invoke(response);
             return;
         }
 
