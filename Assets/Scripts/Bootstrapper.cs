@@ -3,32 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Net.Http;
 using System;
+using UnityEngine.InputSystem;
 
 public class Bootstrapper : MonoBehaviour
 {
     [SerializeField]
     private JengaStack[] _stacks;
 
-    private string _apiUri = @"https://ga1vqcu3o1.execute-api.us-east-1.amazonaws.com/Assessment/stack";
+    [SerializeField]
+    private PlayerInput _input;
+
+    private void Awake()
+    {
+        CoreController.JengaStacks = _stacks;
+        CoreController.Input = _input;
+
+        CoreController.InitializeGame();
+    }
+}
+
+public static class CoreController
+{
+    public static JengaStack[] JengaStacks;
+    public static PlayerInput Input;
 
     public static Action OnInitializationComplete;
 
-    private void Start()
+    private static readonly string _apiUri = @"https://ga1vqcu3o1.execute-api.us-east-1.amazonaws.com/Assessment/stack";
+
+    public static void InitializeGame()
     {
         HttpService.GetJSON<List<BlockModel>>(_apiUri, InitializeStacks, NetworkError);
     }
 
-    private void InitializeStacks(List<BlockModel> data)
+    private static void InitializeStacks(List<BlockModel> data)
     {
-        for (int i = 0; i < _stacks.Length; i++)
+        for (int i = 0; i < JengaStacks.Length; i++)
         {
-            _stacks[i].Initialize(data);
+            JengaStacks[i].Initialize(data);
         }
 
         OnInitializationComplete?.Invoke();
     }
 
-    private void NetworkError(HttpResponseMessage message)
+    private static void NetworkError(HttpResponseMessage message)
     {
         Debug.LogError($"Error retrieving data: {message.StatusCode}");
     }
