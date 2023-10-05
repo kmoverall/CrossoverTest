@@ -13,10 +13,18 @@ public class Bootstrapper : MonoBehaviour
     [SerializeField]
     private PlayerInput _input;
 
+    [SerializeField]
+    private CameraControls _camera;
+
+    [SerializeField]
+    private UIController _ui;
+
     private void Awake()
     {
         CoreController.JengaStacks = _stacks;
         CoreController.Input = _input;
+        CoreController.Camera = _camera;
+        CoreController.UI = _ui;
 
         CoreController.InitializeGame();
     }
@@ -26,6 +34,14 @@ public static class CoreController
 {
     public static JengaStack[] JengaStacks;
     public static PlayerInput Input;
+    public static CameraControls Camera;
+    public static UIController UI;
+
+    public static int TargetStackIndex = 1;
+
+    public static JengaStack TargetedStack {
+        get => JengaStacks[TargetStackIndex];
+    }
 
     public static Action OnInitializationComplete;
 
@@ -33,6 +49,7 @@ public static class CoreController
 
     public static void InitializeGame()
     {
+        TargetStackIndex = Camera.CurrentTargetIndex;
         HttpService.GetJSON<List<BlockModel>>(_apiUri, InitializeStacks, NetworkError);
     }
 

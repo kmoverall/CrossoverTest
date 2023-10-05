@@ -15,7 +15,7 @@ public class CameraControls : MonoBehaviour
     private InputAction _orbitAction;
 
     [SerializeField]
-    private int _currentTargetIndex;
+    public int CurrentTargetIndex = 1;
 
     private void Start()
     {
@@ -25,7 +25,6 @@ public class CameraControls : MonoBehaviour
 
     private void Update()
     {
-        Cursor.visible = _orbitAction.ReadValue<float>() == 0;
         if (_orbitAction.ReadValue<float>() > 0)
         {
             var motion = _moveAction.ReadValue<Vector2>();
@@ -36,16 +35,18 @@ public class CameraControls : MonoBehaviour
 
     public void CycleLeft()
     {
-        _currentTargetIndex = (_currentTargetIndex - 1) % CoreController.JengaStacks.Length;
-        _currentTargetIndex = _currentTargetIndex < 0 ? CoreController.JengaStacks.Length - 1 : _currentTargetIndex;
+        CurrentTargetIndex = (CurrentTargetIndex - 1) % CoreController.JengaStacks.Length;
+        CurrentTargetIndex = CurrentTargetIndex < 0 ? CoreController.JengaStacks.Length - 1 : CurrentTargetIndex;
 
-        _cameraRoot.position = CoreController.JengaStacks[_currentTargetIndex].transform.position;
+        CoreController.TargetStackIndex = CurrentTargetIndex;
+        _cameraRoot.position = CoreController.TargetedStack.transform.position;
     }
     public void CycleRight()
     {
-        _currentTargetIndex = (_currentTargetIndex + 1) % CoreController.JengaStacks.Length;
+        CurrentTargetIndex = (CurrentTargetIndex + 1) % CoreController.JengaStacks.Length;
 
-        _cameraRoot.position = CoreController.JengaStacks[_currentTargetIndex].transform.position;
+        CoreController.TargetStackIndex = CurrentTargetIndex;
+        _cameraRoot.position = CoreController.TargetedStack.transform.position;
     }
 
 

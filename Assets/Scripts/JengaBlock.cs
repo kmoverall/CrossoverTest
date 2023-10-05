@@ -33,9 +33,10 @@ public class JengaBlock : MonoBehaviour
 
     public void Reset()
     {
+        _blockPhysics.isKinematic = true;
         gameObject.SetActive(true);
         // Parent stays at original location while block is affected by physics
         _blockRenderer.transform.localPosition = Vector3.zero;
-        _blockPhysics.isKinematic = true;
+        _blockRenderer.transform.localRotation = Quaternion.identity;
     }
 }

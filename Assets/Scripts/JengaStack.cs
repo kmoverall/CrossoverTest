@@ -60,4 +60,24 @@ public class JengaStack : MonoBehaviour
             }
         }
     }
+
+    public void TestStack()
+    {
+        StartCoroutine(TestStackCoroutine(5));
+    }
+
+    private IEnumerator TestStackCoroutine(float time)
+    {
+        foreach (var block in _blocks)
+        {
+            block.ActivatePhysics();
+        }
+
+        yield return new WaitForSeconds(time);
+
+        foreach (var block in _blocks)
+        {
+            block.Reset();
+        }
+    }
 }
