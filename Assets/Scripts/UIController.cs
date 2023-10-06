@@ -28,5 +28,9 @@ public class UIController : MonoBehaviour
 
     private void TestStack() => CoreController.TargetedStack.TestStack();
 
-
+    public void ShowInfo(string text)
+    {
+        _infoPanel.SetActive(true);
+        _infoText.text = text;
+    }
 }

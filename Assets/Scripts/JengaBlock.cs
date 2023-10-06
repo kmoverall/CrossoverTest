@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class JengaBlock : MonoBehaviour
+public class JengaBlock : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private Material[] _masteryMaterials;
@@ -38,5 +39,19 @@ public class JengaBlock : MonoBehaviour
         // Parent stays at original location while block is affected by physics
         _blockRenderer.transform.localPosition = Vector3.zero;
         _blockRenderer.transform.localRotation = Quaternion.identity;
+    }
+
+    //Would prefer to do this with the new Input System, but documentation isn't great and time is limited
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right)
+        {
+            return;
+        }
+
+        var infoString = $"{_model.grade}: {_model.domain}\n\n" +
+            $"{_model.cluster}\n\n" +
+            $"{_model.standardid}: {_model.standarddescription}";
+        CoreController.UI.ShowInfo(infoString);
     }
 }
